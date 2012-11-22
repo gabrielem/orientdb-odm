@@ -45,7 +45,7 @@ class Select extends Command implements SelectInterface
      */
     protected function getSchema()
     {
-        return "SELECT :Projections FROM :Target :Where :Between :OrderBy :Limit :Range";
+        return "SELECT :Projections FROM :Target :Where :Between :OrderBy :Skip :Limit :Range";
     }
 
     /**
@@ -121,6 +121,18 @@ class Select extends Command implements SelectInterface
     }
 
     /**
+     * Sets the number of records to skip.
+     *
+     * @param integer $limit
+     */
+    public function skip($records)
+    {
+        $this->setToken('Skip', (int) $records);
+
+        return $this;
+    }
+
+    /**
      * Adds the range to the select.
      *
      * @param integer $limit
@@ -154,6 +166,7 @@ class Select extends Command implements SelectInterface
             'Projections' => "Congow\Orient\Formatter\Query\Select",
             'OrderBy'     => "Congow\Orient\Formatter\Query\OrderBy",
             'Limit'       => "Congow\Orient\Formatter\Query\Limit",
+            'Skip'        => "Congow\Orient\Formatter\Query\Skip",
             'Range'       => "Congow\Orient\Formatter\Query\Range",
             'Between'     => "Congow\Orient\Formatter\Query\Between",
         ));
